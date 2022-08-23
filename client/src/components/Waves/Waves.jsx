@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import abi from '../../utils/WavePortal.json';
 import './Waves.css';
 
-const contractAddress = '0x027493A6c3880cBc0c372A9D39Cc1ea69eEe89d5';
+const contractAddress = '0x242880cD7EbCdD2FA2b9138d44509884232d37cd';
 const contractABI = abi.abi;
 
 export function Waves({ currentAccount }) {
@@ -81,10 +81,6 @@ export function Waves({ currentAccount }) {
   };
 
   useEffect(() => {
-    getWaves();
-  }, [currentAccount]);
-
-  useEffect(() => {
     const onNewWave = (from, timestamp, message) => {
       setWaves(prevState => [
         ...prevState,
@@ -98,6 +94,7 @@ export function Waves({ currentAccount }) {
 
     const { ethereum } = window;
     let wavePortalContract;
+
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
@@ -115,7 +112,11 @@ export function Waves({ currentAccount }) {
         wavePortalContract.off('NewWave', onNewWave);
       }
     };
-  }, []);
+  }, [currentAccount]);
+
+  useEffect(() => {
+    getWaves();
+  }, [currentAccount]);
 
   return (
     <div className="waves-wrapper">
