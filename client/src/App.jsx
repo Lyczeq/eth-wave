@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { Button } from './components/Button/Button';
 import { Waves } from './components/Waves/Waves';
+
+import './App.css';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
@@ -22,7 +23,6 @@ const App = () => {
       }
 
       const account = accounts[0];
-      console.log(account);
       setCurrentAccount(account);
     } catch (error) {}
   };
@@ -39,7 +39,6 @@ const App = () => {
         method: 'eth_requestAccounts',
       });
 
-      console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);

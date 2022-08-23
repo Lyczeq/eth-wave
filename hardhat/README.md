@@ -68,8 +68,36 @@ First terminal:
 ```
 
 Second one:
+
 ```
     Deploying contracts with account:  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
     Account balance:  10000000000000000000000
     WavePortal address:  0x5FbDB2315678afecb367f032d93F642f64180aa3
 ```
+
+## Deploying on Rinkeby testnet
+
+Create a Metamask wallet and a project on Alchemy. Create the following `.env` file and set the variables:
+
+```
+STAGING_ALCHEMY_KEY=
+PROD_ALCHEMY_KEY=
+PRIVATE_KEY=
+```
+
+Run the following command:
+
+```sh
+npx hardhat run scripts/deploy.js --network rinkeby
+```
+
+You should expect similar output:
+
+```
+Deploying contracts with the account: 0xF79A3bb8d5b93686c4068E2A97eAeC5fE4843E7D
+Account balance: 3198297774605223721
+WavePortal address: 0xd5f08a0ae197482FA808cE84E00E97d940dBD26E
+```
+
+1. Change the value of the `contractAddress` variable in the `Waves.jsx` file in the React application.
+2. Copy the content of the `WavePortal.json` file in the `artifacts/contracts/WavePortal` and paste it to the `client/src/utils/WavePortal.json` file in the React application.
