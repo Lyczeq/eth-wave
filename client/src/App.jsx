@@ -1,34 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import { Button } from './components/Button/Button';
+import { Waves } from './components/Waves/Waves';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [currentAccount, setCurrentAccount] = useState('');
+
+  const checkWalletConnection = async () => {
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      alert('Please install metamask!');
+      return;
+    }
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length === 0) {
+        console.log('No authorized account found');
+        return;
+      }
+
+      const account = accounts[0];
+      console.log(account);
+      setCurrentAccount(account);
+    } catch (error) {}
+  };
+
+  const handleConnectWallet = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert('Get MetaMask!');
+        return;
+      }
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+
+      console.log('Connected', accounts[0]);
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    checkWalletConnection();
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="main-container">
+      <div className="data-container">
+        <div className="header">
+          👋 Wave to your friends using the Ethereum blockchain!
+        </div>
+        {currentAccount ? (
+          <Waves currentAccount={currentAccount} />
+        ) : (
+          <Button onClick={handleConnectWallet}>Connect Wallet</Button>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
