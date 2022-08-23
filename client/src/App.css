@@ -1,0 +1,21 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.data-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+

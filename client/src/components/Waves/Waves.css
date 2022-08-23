@@ -1,0 +1,21 @@
+.waves-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-input {
+  padding: 15px 10px;
+}
+
+.wave {
+  background-color: rgb(207, 206, 194);
+  margin-top: 16px;
+  padding: 8px;
+}
+
+.error-message {
+  align-self: center;
+  margin: 10px 0;
+  color: rgb(184, 95, 95);
+  font-size: 16px;
+}
